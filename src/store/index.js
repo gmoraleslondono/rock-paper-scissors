@@ -12,6 +12,11 @@ export default new Vuex.Store({
     isUserWinner: false,
     showResult: false,
   },
+  getters: {
+    choices: state => state.choices,
+    showResult: state => state.showResult,
+    isUserWinner: state => state.isUserWinner,
+  },
   // methods that changes the state
   mutations: {
     setUserChoice(state, userChoice) {
