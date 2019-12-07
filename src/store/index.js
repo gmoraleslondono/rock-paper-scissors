@@ -14,6 +14,14 @@ export default new Vuex.Store({
   },
   // methods that changes the state
   mutations: {
+    setUserChoice(state, userChoice) {
+      console.log('before mutation happens', state.userChoice);
+      state.userChoice = userChoice;
+      console.log('after mutation happens', state.userChoice);
+    },
+    setComputerChoice(state, computerChoice) {
+      state.computerChoice = computerChoice;
+    },
     setIsUserWinner(state, choices) {
       let isUserWinner;
       if (choices.userChoice === 'rock' && choices.computerChoice === 'scissor') {
@@ -30,16 +38,26 @@ export default new Vuex.Store({
       // return this.isUserWinner;
       state.isUserWinner = isUserWinner;
     },
+    setResult(state, bool) {
+      console.log('before mutation result happens', state.showResult);
+      state.showResult = bool;
+      console.log('before mutation result happens', state.showResult);
+    },
   },
   // methods in the component
   actions: {
     playGame({ commit, state }, userSelection) {
+      commit('setResult', false);
       const computerChoice = state.choices[Math.floor(Math.random() * state.choices.length)];
       const userChoice = userSelection;
+
       console.log(userChoice, computerChoice, state.isUserWinner);
+
+      commit('setUserChoice', userChoice);
+      commit('setComputerChoice', computerChoice);
       commit('setIsUserWinner', { computerChoice, userChoice });
-      // this.checkWinner();
-      // this.showResult = !this.showResult;
+
+      commit('setResult', true);
     },
   },
   modules: {
