@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint --fix"
+    "lint": "vue-cli-service lint --fix",
+    "deploy": "git push -f git@github.com:gmoraleslondono/rock-paper-scissors.git master:gh-pages"
   },
   "dependencies": {
     "core-js": "^3.4.3",
