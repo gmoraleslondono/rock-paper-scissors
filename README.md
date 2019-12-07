@@ -1,2 +1,2 @@
-# rock-paper-scissors
-Vue basic program
+# rock-papper-scissors-game
+little game project from vuevixens course
