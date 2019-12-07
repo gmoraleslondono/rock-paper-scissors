@@ -2,7 +2,7 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <h3>Choose Your option to start playing</h3>
-    <form @submit.prevent="playGame">
+    <form @submit.prevent="sendUserSelection">
       <radio-button
         v-for="(choice, index) in choices"
         :key="index"
@@ -15,10 +15,10 @@
         text="Play!"
       />
     </form>
-    <result
+    <!-- <result
       v-if="showResult"
       :result="isUserWinner"
-    />
+    /> -->
   </div>
 </template>
 
@@ -26,45 +26,27 @@
 // @ is an alias to /src
 import RadioButton from '@/components/RadioButton.vue';
 import TheButton from '@/components/TheButton.vue';
-import Result from '@/components/Result.vue';
+// import Result from '@/components/Result.vue';
 
 export default {
   name: 'home',
   components: {
     RadioButton,
     TheButton,
-    Result,
+    // Result,
   },
-  data() {
-    return {
-      choices: ['rock', 'paper', 'scissors'],
-      computerChoice: '',
-      userChoice: '',
-      isUserWinner: false,
-      showResult: false,
-    };
+  // accesing data that is not in this component
+  computed: {
+    choices() {
+      return this.$store.state.choices;
+    },
   },
   methods: {
-    playGame() {
-      this.computerChoice = this.choices[Math.floor(Math.random() * this.choices.length)];
-      this.userChoice = document.querySelector('.radio:checked').value;
-      console.log(this.userChoice, this.computerChoice, this.isUserWinner);
-      this.checkWinner();
-      this.showResult = !this.showResult;
-    },
-    checkWinner() {
-      if (this.userChoice === 'rock' && this.computerChoice === 'scissor') {
-        this.isUserWinner = true;
-      } else if (this.userChoice === 'paper' && this.computerChoice === 'rock') {
-        this.isUserWinner = true;
-      } else if (this.userChoice === 'scissors' && this.computerChoice === 'paper') {
-        this.isUserWinner = true;
-      } else if (this.userChoice === this.computerChoice) {
-        this.isUserWinner = false;
-      } else {
-        this.isUserWinner = false;
-      }
-      return this.isUserWinner;
+    sendUserSelection() {
+      // document.querySelector('.radio:checked').value;
+      // $el check in this view document in all project
+      const selection = this.$el.querySelector('.radio:checked').value;
+      this.$store.dispatch('playGame', selection);
     },
   },
 };
